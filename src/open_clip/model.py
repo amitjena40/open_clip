@@ -197,8 +197,8 @@ class LayerNorm(nn.LayerNorm):
 
     def forward(self, x: torch.Tensor):
         orig_type = x.dtype
-        x = x.to(torch.float32)
-        x = F.layer_norm(x, self.normalized_shape, self.weight, self.bias, self.eps)
+        #x = x.to(torch.float32)
+        x = F.layer_norm(x, self.normalized_shape, self.weight.type(x.dtype), self.bias.type(x.dtype), self.eps)
         return x.to(orig_type)
 
 
